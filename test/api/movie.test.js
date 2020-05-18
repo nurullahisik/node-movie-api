@@ -85,7 +85,49 @@ describe('/api/movies tests', () => {
         });
     });
 
+    /* Update Movie */
+    describe('/PUT a movie', () => {
+        it('it should put a movie by the given id', (done) => {
+            let movie = {
+                title: 'Udemy test'
+            };
 
+            chai.request(server)
+            .put('/api/movies/' + movie_id)
+            .send(movie)
+            .set('x-access-token', token)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('_id');
+                res.body.should.have.property('title');
+                res.body.should.have.property('_id').equal(movie_id);
+
+                // old and new value equal control
+                res.body.should.have.property('title').equal(movie.title);
+
+                done();
+            })
+        });
+    });
+
+    /* Delete movie */
+    describe('/DELETE a movie', () => {
+        it('it should delete a movie by the given id', (done) => {
+            chai.request(server)
+            .delete('/api/movies/' + movie_id)
+            .set('x-access-token', token)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.property('status');
+                res.body.should.property('status').equal(true);
+               
+                done();
+            })
+        });
+    });
+    
 
 
 }); 
