@@ -7,3 +7,7 @@
 **Database:** MongoDB
 
 **Test:** Chai - Mocha
+
+**JWT**
+
+**Travis-CI**
